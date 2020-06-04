@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>To Get Google Sheet Data as JSON format</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+	<div id="result"></div>
+    <script>
+    // ID of the Google Spreadsheet
+    var spreadsheetID = "Spreadsheet ID";
+
+    // Make sure it is public or set to Anyone with link can view 
+    var url = "https://spreadsheets.google.com/feeds/list/" + spreadsheetID + "/1/public/values?alt=json"; //this is the part that's changed
+    Entry = [];
+
+    $.getJSON(url, function(data) {
+
+        Entry = Object.keys(data.feed['entry']);
+        console.log(Entry);
+        for(i=0;i<Entry.length;i++){
+
+        $("#result").append(data.feed['entry'][i]['content']['$t']+"<br>");
+
+        }
+
+    });
+    </script>
+</body>
+
+</html>
